@@ -4,6 +4,10 @@ namespace API.Entities
 {
     public class AppUser : IdentityUser<int>
     {
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public string Address { get; set; }
+        public string EmergencyContactName { get; set; }
         public ICollection<Classes> Classes { get; set; }
         public ICollection<Grades> Grades { get; set; }
         public ICollection<Enrollments> Enrollments { get; set; }

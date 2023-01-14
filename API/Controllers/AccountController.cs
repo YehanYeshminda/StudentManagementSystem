@@ -39,8 +39,8 @@ namespace API.Controllers
             };
         }
 
-        [HttpPost("register")]
-        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
+        [HttpPost("admin/register")]
+        public async Task<ActionResult<UserDto>> AdminRegister(RegisterDto registerDto)
         {
             if (await UserExists(registerDto.UserName)) return BadRequest("Username is already taken");
 
@@ -49,6 +49,31 @@ namespace API.Controllers
             user.UserName = registerDto.UserName.ToLower();
 
             var result = await _userManager.CreateAsync(user, registerDto.Password);
+
+            if (!result.Succeeded) return BadRequest(result.Errors);
+
+            // default register will be a member
+            var roleResult = await _userManager.AddToRoleAsync(user, "admin");
+
+            if (!roleResult.Succeeded) return BadRequest(result.Errors);
+
+            return new UserDto
+            {
+                UserName = user.UserName,
+                Token = await _tokenInterface.CreateToken(user),
+            };
+        }
+
+        [HttpPost("student/register")]
+        public async Task<ActionResult<UserDto>> RegisterStudent(StudentRegisterDto studentRegisterDto)
+        {
+            if (await UserExists(studentRegisterDto.UserName)) return BadRequest("Username is already taken");
+
+            var user = _mapper.Map<AppUser>(studentRegisterDto);
+
+            user.UserName = studentRegisterDto.UserName.ToLower();
+
+            var result = await _userManager.CreateAsync(user, studentRegisterDto.Password);
 
             if (!result.Succeeded) return BadRequest(result.Errors);
 
