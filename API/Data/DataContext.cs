@@ -12,6 +12,13 @@ namespace API.Data
         }
 
         public DbSet<AppUser> AppUsers { get; set; }
+        public DbSet<Courses> Courses { get; set; }
+        public DbSet<Enrollments> Enrollments { get; set; }
+        public DbSet<Teachers> Teachers { get; set; }
+        public DbSet<Classes> Classes { get; set; }
+        public DbSet<Grades> Grades { get; set; }
+        public DbSet<Attendance> Attendances { get; set; }
+        public DbSet<Billing> Billings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

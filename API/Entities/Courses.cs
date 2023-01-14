@@ -7,5 +7,6 @@ namespace API.Entities
         public string Description { get; set; }
         public int CreditHours { get; set; }
         public ICollection<Enrollments> Enrollments { get; set; }        
+        public ICollection<Classes> Classes { get; set; }        
     }
 }

@@ -1,6 +1,9 @@
 namespace API.Controllers
 {
-    public class StudentController
+    public class StudentController : BaseApiController
     {
+        public StudentController()
+        {
+        }
     }
 }

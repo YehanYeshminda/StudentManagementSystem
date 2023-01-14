@@ -53,7 +53,7 @@ namespace API.Controllers
             if (!result.Succeeded) return BadRequest(result.Errors);
 
             // default register will be a member
-            var roleResult = await _userManager.AddToRoleAsync(user, "Member");
+            var roleResult = await _userManager.AddToRoleAsync(user, "Student");
 
             if (!roleResult.Succeeded) return BadRequest(result.Errors);
 
